@@ -9,6 +9,7 @@ function App() {
       <Route path="/" element={ <Login /> } />
       <Route path="/loading" element={ <Loading /> } />
       <Route path="/search" element={ <Search /> } />
+      <Route path="/album/:id" element={ <h2>Ops...</h2> } />
     </Routes>
   );
 }
