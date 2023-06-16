@@ -1,5 +1,15 @@
+import { Outlet } from 'react-router-dom';
+import Header from '../Components/Header';
+
 function Layout() {
-  return <input type="text" data-testid="search-artist-input" />;
+  return (
+    <>
+      <Header />
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
 }
 
 export default Layout;

@@ -3,7 +3,7 @@ import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import { AlbumType } from '../types';
 import InputButton from '../Components/InputButton';
 import Loading from './Loading';
-import Album from '../Components/Album';
+import Albums from '../Components/Albums';
 
 type ObjState = {
   name: string;
@@ -68,7 +68,7 @@ function Search() {
               <h2>{ `Resultado de álbuns de: ${artistName}`}</h2>
               <section className="albuns">
                 { objArtist
-                  .map((album) => <Album key={ album.collectionId } { ...album } />) }
+                  .map((album) => <Albums key={ album.collectionId } { ...album } />) }
               </section>
             </section>)}
       </>
