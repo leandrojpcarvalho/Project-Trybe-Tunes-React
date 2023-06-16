@@ -1,6 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
-import Login from './Login';
-
 function Layout() {
-  return <p> oi!</p>;
+  return <input type="text" data-testid="search-artist-input" />;
 }
+
+export default Layout;
