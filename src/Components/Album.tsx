@@ -1,24 +1,60 @@
-import { NavLink } from 'react-router-dom';
-import { AlbumType } from '../types';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import getMusics from '../services/musicsAPI';
+import { AlbumType, SongType } from '../types';
+import Loading from '../pages/Loading';
+import ListMusic from './ListMusic';
 
-function Album(props: AlbumType) {
-  const { artworkUrl100, collectionName, collectionId } = props;
-  return (
+const INITIAL_STATE = {
+  albumInfo: {} as AlbumType,
+  songs: [] as SongType[],
+  isLoading: false,
+};
+
+function Album() {
+  const [objState, setObjState] = useState(INITIAL_STATE);
+  const albumId = useParams().id;
+
+  const { albumInfo, isLoading, songs } = objState;
+  const { artistName, artworkUrl100, collectionName } = albumInfo;
+  useEffect(() => {
+    const getAlbum = async () => {
+      setObjState((prevObj: any) => ({ ...prevObj, isLoading: true }));
+      if (albumId) {
+        const response = await getMusics(albumId);
+        const musics = response.slice(1);
+        const [album] = response;
+        setObjState((prevObj: any) => {
+          const tempState = ({ ...prevObj,
+            albumInfo: album,
+            songs: musics,
+            isLoading: false,
+          });
+          return tempState;
+        });
+      }
+    };
+    getAlbum();
+  }, [albumId]);
+
+  return (isLoading ? <Loading /> : (
     <section className="album">
-      <div className="backgroud">
-        <NavLink
-          to={ `/album/${collectionId}` }
-          data-testid={ `link-to-album-${collectionId}` }
-        >
-          <h3>{ collectionName }</h3>
-        </NavLink>
+      <section className="albuminfo">
+        <h2 data-testid="album-name">
+          { collectionName }
+        </h2>
+        <h4 data-testid="artist-name">
+          { artistName }
+        </h4>
         <img
           src={ artworkUrl100 }
-          alt={ `foto do album ${collectionName}` }
+          alt=""
         />
-      </div>
-    </section>
-  );
+        <ol className="songs">
+          {songs.map((song) => <ListMusic key={ song.trackId } { ...song } />)}
+        </ol>
+      </section>
+    </section>));
 }
 
 export default Album;
