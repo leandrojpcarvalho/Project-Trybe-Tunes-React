@@ -4,6 +4,7 @@ import getMusics from '../services/musicsAPI';
 import { AlbumType, Favorite, SongType } from '../types';
 import Loading from '../pages/Loading';
 import ListMusic from './ListMusic';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 const INITIAL_STATE = {
   albumInfo: {} as AlbumType,
@@ -39,9 +40,26 @@ function Album() {
     getAlbum();
   }, [albumId]);
 
-  const handleObjIsFavorite = (trackId: string) => {
+  const handleObjIsFavorite = async (trackId: string) => {
     const current = objIsFavorite[trackId];
-    setObjIsFavorite({ ...objIsFavorite, [trackId]: !current });
+    setObjIsFavorite((prevObj) => ({ ...prevObj, [trackId]: !current }));
+    await addAndRemoveFavorite(trackId);
+  };
+  const addAndRemoveFavorite = async (trackId: string) => {
+    const [objSong] = (songs.filter((song) => song.trackId === Number(trackId)));
+    let isValid = '';
+    try {
+      if (!objIsFavorite[trackId]) {
+        isValid = await addSong(objSong);
+        if (isValid !== 'OK') throw new Error('erro ao adicionar música');
+      } else {
+        isValid = await removeSong(objSong);
+        if (isValid !== 'OK') throw new Error('erro ao remover música');
+      }
+      await removeSong(objSong);
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (isLoading ? <Loading /> : (
