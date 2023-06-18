@@ -4,7 +4,7 @@ import getMusics from '../services/musicsAPI';
 import { AlbumType, Favorite, SongType } from '../types';
 import Loading from '../pages/Loading';
 import ListMusic from './ListMusic';
-import { addSong, removeSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 const INITIAL_STATE = {
   albumInfo: {} as AlbumType,
@@ -16,7 +16,7 @@ function Album() {
   const [objState, setObjState] = useState(INITIAL_STATE);
   const [objIsFavorite, setObjIsFavorite] = useState<Favorite>({});
 
-  const albumId = useParams().id;
+  const { id: albumId } = useParams();
 
   const { albumInfo, isLoading, songs } = objState;
   const { artistName, artworkUrl100, collectionName } = albumInfo;
@@ -38,28 +38,33 @@ function Album() {
       }
     };
     getAlbum();
+    getIsfavorite();
   }, [albumId]);
 
   const handleObjIsFavorite = async (trackId: string) => {
     const current = objIsFavorite[trackId];
     setObjIsFavorite((prevObj) => ({ ...prevObj, [trackId]: !current }));
-    await addAndRemoveFavorite(trackId);
+    const newObj = getMusicObj(trackId);
+    if (newObj) await addAndRemoveFavorite(newObj, !current);
   };
-  const addAndRemoveFavorite = async (trackId: string) => {
-    const [objSong] = (songs.filter((song) => song.trackId === Number(trackId)));
-    let isValid = '';
-    try {
-      if (!objIsFavorite[trackId]) {
-        isValid = await addSong(objSong);
-        if (isValid !== 'OK') throw new Error('erro ao adicionar música');
-      } else {
-        isValid = await removeSong(objSong);
-        if (isValid !== 'OK') throw new Error('erro ao remover música');
-      }
-      await removeSong(objSong);
-    } catch (error: any) {
-      console.log(error.message);
+
+  const getMusicObj = (trackId: string) => songs
+    .find((song) => song.trackId === Number(trackId));
+
+  const addAndRemoveFavorite = async (obj: SongType, isFavorite:boolean) => {
+    if (isFavorite) {
+      if (await addSong(obj) !== 'OK') throw new Error('erro ao adicionar música');
+    } else if (await removeSong(obj) !== 'OK') {
+      throw new Error('erro ao remover música');
     }
+  };
+
+  const getIsfavorite = async () => {
+    const arrSongs = await getFavoriteSongs();
+    arrSongs
+      .forEach((music) => {
+        setObjIsFavorite((prevObj) => ({ ...prevObj, [music.trackId.toString()]: true }));
+      });
   };
 
   return (isLoading ? <Loading /> : (
