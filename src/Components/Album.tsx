@@ -14,8 +14,7 @@ const INITIAL_STATE = {
 
 function Album(props:PropsFavorite) {
   const [objState, setObjState] = useState(INITIAL_STATE);
-  // const [objIsFavorite, setObjIsFavorite] = useState<Favorite>({});
-  const {handleIsFavorite, objIsFavorite} = props;
+  const { handleIsFavorite, objIsFavorite } = props;
   const { id: albumId } = useParams();
 
   const { albumInfo, isLoading, songs } = objState;
@@ -31,41 +30,14 @@ function Album(props:PropsFavorite) {
           const tempState = ({ ...prevObj,
             albumInfo: album,
             songs: musics,
+            isLoading: false,
           });
           return tempState;
         });
       }
     };
     getAlbum();
-    getIsFavorite();
   }, [albumId]);
-
-  const handleObjIsFavorite = async (trackId: string) => {
-    const current = objIsFavorite[trackId];
-    setObjIsFavorite((prevObj) => ({ ...prevObj, [trackId]: !current }));
-    const newObj = getMusicObj(trackId);
-    if (newObj) await addAndRemoveFavorite(newObj, !current);
-  };
-
-  const getMusicObj = (trackId: string) => songs
-    .find((song) => song.trackId === Number(trackId));
-
-  const addAndRemoveFavorite = async (obj: SongType, isFavorite:boolean) => {
-    if (isFavorite) {
-      if (await addSong(obj) !== 'OK') throw new Error('erro ao adicionar música');
-    } else if (await removeSong(obj) !== 'OK') {
-      throw new Error('erro ao remover música');
-    }
-  };
-
-  const getIsFavorite = async () => {
-    const arrSongs = await getFavoriteSongs();
-    arrSongs
-      .forEach((music) => {
-        setObjIsFavorite((prevObj) => ({ ...prevObj, [music.trackId.toString()]: true }));
-      });
-    setObjState((prevObj) => ({ ...prevObj, isLoading: false }));
-  };
 
   return (isLoading ? <Loading /> : (
     <section className="album">
@@ -92,6 +64,7 @@ function Album(props:PropsFavorite) {
                   trackName={ trackName }
                   handleIsFavorite={ handleIsFavorite }
                   objIsFavorite={ objIsFavorite }
+                  songs={ songs }
                 />);
               })
           }
