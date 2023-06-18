@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import getMusics from '../services/musicsAPI';
-import { AlbumType, Favorite, SongType } from '../types';
+import { AlbumType, Favorite, PropsFavorite, SongType } from '../types';
 import Loading from '../pages/Loading';
 import ListMusic from './ListMusic';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
@@ -9,13 +9,13 @@ import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongs
 const INITIAL_STATE = {
   albumInfo: {} as AlbumType,
   songs: [] as SongType[],
-  isLoading: false,
+  isLoading: true,
 };
 
-function Album() {
+function Album(props:PropsFavorite) {
   const [objState, setObjState] = useState(INITIAL_STATE);
-  const [objIsFavorite, setObjIsFavorite] = useState<Favorite>({});
-
+  // const [objIsFavorite, setObjIsFavorite] = useState<Favorite>({});
+  const {handleIsFavorite, objIsFavorite} = props;
   const { id: albumId } = useParams();
 
   const { albumInfo, isLoading, songs } = objState;
@@ -31,14 +31,13 @@ function Album() {
           const tempState = ({ ...prevObj,
             albumInfo: album,
             songs: musics,
-            isLoading: false,
           });
           return tempState;
         });
       }
     };
     getAlbum();
-    getIsfavorite();
+    getIsFavorite();
   }, [albumId]);
 
   const handleObjIsFavorite = async (trackId: string) => {
@@ -59,12 +58,13 @@ function Album() {
     }
   };
 
-  const getIsfavorite = async () => {
+  const getIsFavorite = async () => {
     const arrSongs = await getFavoriteSongs();
     arrSongs
       .forEach((music) => {
         setObjIsFavorite((prevObj) => ({ ...prevObj, [music.trackId.toString()]: true }));
       });
+    setObjState((prevObj) => ({ ...prevObj, isLoading: false }));
   };
 
   return (isLoading ? <Loading /> : (
@@ -81,18 +81,20 @@ function Album() {
           alt=""
         />
         <ol className="songs">
-          {songs
-            .map((song) => {
-              const { previewUrl, trackId, trackName } = song;
-              return (<ListMusic
-                key={ song.trackId }
-                previewUrl={ previewUrl }
-                trackId={ trackId }
-                trackName={ trackName }
-                handleIsFavorite={ handleObjIsFavorite }
-                objIsFavorite={ objIsFavorite }
-              />);
-            })}
+          {
+            songs
+              .map((song) => {
+                const { previewUrl, trackId, trackName } = song;
+                return (<ListMusic
+                  key={ song.trackId }
+                  previewUrl={ previewUrl }
+                  trackId={ trackId }
+                  trackName={ trackName }
+                  handleIsFavorite={ handleIsFavorite }
+                  objIsFavorite={ objIsFavorite }
+                />);
+              })
+          }
         </ol>
       </section>
     </section>));

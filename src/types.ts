@@ -25,3 +25,8 @@ export type SongType = {
 export type Favorite = {
   [key: string]: boolean;
 };
+
+export type PropsFavorite = {
+  handleIsFavorite: (id:string) => void;
+  objIsFavorite: Favorite;
+};
