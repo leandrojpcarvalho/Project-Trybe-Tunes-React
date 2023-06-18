@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ListMusic from '../Components/ListMusic';
 import Loading from './Loading';
 import { PropsFavorite, SongType } from '../types';
@@ -12,7 +12,11 @@ const INITIAL_STATE = {
 function Favorites(props:PropsFavorite) {
   const [favoriteState, setFavoriteState] = useState(INITIAL_STATE);
   const { isLoading, favoriteSongs } = favoriteState;
-  const { handleIsFavorite, objIsFavorite } = props;
+  const { handleIsFavorite, objIsFavorite, getIsFavorite } = props;
+
+  useEffect(() => {
+    getIsFavorite();
+  }, []);
 
   const SetFavoriteInitialState = async () => {
     const songList = await getFavoriteSongs();
@@ -22,19 +26,24 @@ function Favorites(props:PropsFavorite) {
       isLoading: false,
     }));
   };
-  SetFavoriteInitialState();
+
+  useEffect(() => {
+    SetFavoriteInitialState();
+    setFavoriteState((prevObj) => ({ ...prevObj, isLoading: true }));
+  }, [objIsFavorite]);
   return (
     isLoading ? <Loading /> : (
       <ul>
-        {favoriteSongs.map((song) => (<ListMusic
-          key={ song.trackId }
-          handleIsFavorite={ handleIsFavorite }
-          objIsFavorite={ objIsFavorite }
-          previewUrl={ song.previewUrl }
-          trackId={ song.trackId }
-          trackName={ song.trackName }
-          songs={ favoriteSongs }
-        />))}
+        {favoriteSongs.length === 0 ? <h4>Poxa! sem nada por aqui!</h4> : (
+          favoriteSongs.map((song) => (<ListMusic
+            key={ song.trackId }
+            handleIsFavorite={ handleIsFavorite }
+            objIsFavorite={ objIsFavorite }
+            previewUrl={ song.previewUrl }
+            trackId={ song.trackId }
+            trackName={ song.trackName }
+            songs={ favoriteSongs }
+          />)))}
       </ul>
     )
   );
