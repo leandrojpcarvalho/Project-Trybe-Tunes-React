@@ -26,7 +26,13 @@ export type Favorite = {
   [key: string]: boolean;
 };
 
+export type InitialStateFavorite = {
+  favoriteSongs: SongType[];
+  isLoading: boolean;
+};
+
 export type PropsFavorite = {
-  handleIsFavorite: (id:string) => void;
+  handleIsFavorite: (id: string, songs: SongType[]) => void;
+  getIsFavorite: () => Promise<SongType[]>;
   objIsFavorite: Favorite;
 };

@@ -33,6 +33,7 @@ function Favorites(props:PropsFavorite) {
           previewUrl={ song.previewUrl }
           trackId={ song.trackId }
           trackName={ song.trackName }
+          songs={ favoriteSongs }
         />))}
       </ul>
     )
