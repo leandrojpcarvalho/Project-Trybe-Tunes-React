@@ -8,6 +8,7 @@ import Layout from './pages/Layout';
 import { Favorite, SongType } from './types';
 import { addSong, getFavoriteSongs, removeSong } from './services/favoriteSongsAPI';
 import Favorites from './pages/Favorites';
+import Profile from './pages/Profile';
 
 function App() {
   const [objIsFavorite, setObjIsFavorite] = useState<Favorite>({});
@@ -47,6 +48,7 @@ function App() {
       <Route path="/" element={ <Layout /> }>
         <Route path="/search" element={ <Search /> } />
         <Route path="/loading" element={ <Loading /> } />
+        <Route path="/profile" element={ <Profile /> } />
         <Route
           path="/favorites"
           element={
