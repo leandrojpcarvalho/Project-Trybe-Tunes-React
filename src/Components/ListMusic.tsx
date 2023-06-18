@@ -26,6 +26,7 @@ function ListMusic(props: ListMusicProp) {
         name=""
         id={ trackIdString }
         onChange={ (event) => handleIsFavorite(event.target.id) }
+        checked={ objIsFavorite[trackIdString] }
       />
       <li>{trackName}</li>
       <audio data-testid="audio-component" src={ previewUrl } controls>
