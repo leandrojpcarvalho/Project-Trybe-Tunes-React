@@ -62,7 +62,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={ <Login /> } />
-      <Route path="/" element={ <Layout /> }>
+      <Route path="/" element={ <Layout { ...{ objUser } } /> }>
         <Route path="/search" element={ <Search /> } />
         <Route path="/loading" element={ <Loading /> } />
         <Route path="/profile" element={ <Profile { ...objUser } /> } />

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from '../pages/Loading';
 
-function Header() {
+function Header({ name }: { name: string }) {
   const [userName, setUserName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const setUser = async () => {
@@ -11,7 +11,9 @@ function Header() {
     setUserName(user.name);
     setIsLoading(false);
   };
-  setUser();
+  useEffect(() => {
+    setUser();
+  }, [name]);
   return (isLoading ? <Loading /> : (
     <header data-testid="header-component">
       <div>

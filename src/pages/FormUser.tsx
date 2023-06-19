@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserType } from '../types';
 import { updateUser } from '../services/userAPI';
+import Loading from './Loading';
 
 const INITIAL_STATE = {
   name: '',
@@ -21,20 +22,28 @@ type FormUserType = {
 function FormUser(props: FormUserType) {
   const [formState, setFormState] = useState<UserType>(INITIAL_STATE);
   const [isDisable, setIsDisable] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const nav = useNavigate();
 
   const { dataUser, setDataUser } = props;
-  const { description, email, image, name } = dataUser;
+  useEffect(() => {
+    setFormState(dataUser);
+    setIsLoading(false);
+  }, []);
+
+  const { description, email, image, name } = formState;
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    setDataUser(() => formState);
+    setIsLoading(true);
+    setDataUser(formState);
+
     if (await updateUser(formState) === 'OK') nav('/profile');
   };
 
   const isDataValid = () => Object.keys(formState)
-    .some((key) => formState[key].length < 1);
+    .some((key) => formState[key as keyof UserType].length < 1);
 
   const handleOnChange = ({ target }: EventForm) => {
     setFormState((prevObj) => ({ ...prevObj, [target.id]: target.value }));
@@ -43,7 +52,7 @@ function FormUser(props: FormUserType) {
   useEffect(() => {
     setIsDisable(() => isDataValid());
   }, [formState]);
-  return (
+  return (isLoading ? <Loading /> : (
     <form action="">
       <img src={ image } alt="foto Atual" />
       <div>
@@ -51,6 +60,7 @@ function FormUser(props: FormUserType) {
         <input
           data-testid="edit-input-image"
           type="text"
+          value={ image }
           name=""
           id="image"
           onChange={ handleOnChange }
@@ -60,6 +70,7 @@ function FormUser(props: FormUserType) {
           <input
             data-testid="edit-input-name"
             id="name"
+            value={ name }
             type="text"
             onChange={ handleOnChange }
           />
@@ -68,6 +79,7 @@ function FormUser(props: FormUserType) {
             data-testid="edit-input-email"
             type="email"
             id="email"
+            value={ email }
             onChange={ handleOnChange }
           />
         </div>
@@ -77,6 +89,7 @@ function FormUser(props: FormUserType) {
           id="description"
           cols={ 45 }
           rows={ 2 }
+          value={ description }
           maxLength={ 100 }
           onChange={ handleOnChange }
         />
@@ -89,7 +102,7 @@ function FormUser(props: FormUserType) {
       >
         Enviar
       </button>
-    </form>
+    </form>)
   );
 }
 
