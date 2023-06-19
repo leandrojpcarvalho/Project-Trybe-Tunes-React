@@ -5,13 +5,23 @@ import Loading from './pages/Loading';
 import Search from './pages/Search';
 import Album from './Components/Album';
 import Layout from './pages/Layout';
-import { Favorite, SongType } from './types';
+import { Favorite, SongType, UserType } from './types';
 import { addSong, getFavoriteSongs, removeSong } from './services/favoriteSongsAPI';
 import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
+import FormUser from './pages/FormUser';
+import { getUser } from './services/userAPI';
+
+const INITIAL_STATE = {
+  name: '',
+  email: '',
+  image: '',
+  description: '',
+};
 
 function App() {
   const [objIsFavorite, setObjIsFavorite] = useState<Favorite>({});
+  const [objUser, setObjUser] = useState<UserType>(INITIAL_STATE);
 
   const handleObjIsFavorite = async (trackId: string, songs: SongType[]) => {
     const current = objIsFavorite[trackId];
@@ -42,13 +52,27 @@ function App() {
     return arrSongs;
   };
 
+  useEffect(() => {
+    const getUserName = async () => {
+      const userObj = await getUser();
+      setObjUser(() => userObj);
+    };
+    getUserName();
+  }, []);
   return (
     <Routes>
       <Route path="/" element={ <Login /> } />
       <Route path="/" element={ <Layout /> }>
         <Route path="/search" element={ <Search /> } />
         <Route path="/loading" element={ <Loading /> } />
-        <Route path="/profile" element={ <Profile /> } />
+        <Route path="/profile" element={ <Profile { ...objUser } /> } />
+        <Route
+          path="/profile/edit"
+          element={ <FormUser
+            dataUser={ objUser }
+            setDataUser={ setObjUser }
+          /> }
+        />
         <Route
           path="/favorites"
           element={
