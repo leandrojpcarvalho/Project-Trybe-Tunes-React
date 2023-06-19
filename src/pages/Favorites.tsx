@@ -14,9 +14,9 @@ function Favorites(props:PropsFavorite) {
   const { isLoading, favoriteSongs } = favoriteState;
   const { handleIsFavorite, objIsFavorite, getIsFavorite } = props;
 
-  // useEffect(() => {
-  //   getIsFavorite();
-  // }, []);
+  useEffect(() => {
+    getIsFavorite();
+  }, []);
 
   const SetFavoriteInitialState = async () => {
     const songList = await getFavoriteSongs();

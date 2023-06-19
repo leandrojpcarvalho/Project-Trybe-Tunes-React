@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import getMusics from '../services/musicsAPI';
-import { AlbumType, Favorite, PropsFavorite, SongType } from '../types';
+import { AlbumType, PropsFavorite, SongType } from '../types';
 import Loading from '../pages/Loading';
 import ListMusic from './ListMusic';
-import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 const INITIAL_STATE = {
   albumInfo: {} as AlbumType,

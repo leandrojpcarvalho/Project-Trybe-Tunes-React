@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUser } from '../services/userAPI';
 import { UserType } from '../types';
 import Loading from './Loading';
 
@@ -15,14 +14,14 @@ function Profile(props: UserType) {
   return (
     isLoading ? <Loading /> : (
       <section className="user">
-        <h3>{ name }</h3>
+        <h2><p data-testid="header-user-name">{name}</p></h2>
         <div>
           <img src={ image } alt="sua foto" data-testid="profile-image" />
           <Link to="/profile/edit">Editar perfil</Link>
-          <ul>
-            <li>{ email }</li>
-            <li>{ description }</li>
-          </ul>
+          <div>
+            <p>{ email }</p>
+            <p>{ description }</p>
+          </div>
         </div>
       </section>)
   );
