@@ -1,31 +1,17 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import { UserType } from '../types';
 import Loading from './Loading';
-import { Link } from 'react-router-dom';
 
-const INITIAL_STATE = {
-  userName: {} as UserType,
-  isLoading: true,
-};
-
-function Profile() {
-  const [objState, setObState] = useState(INITIAL_STATE);
+function Profile(props: UserType) {
+  const [isLoading, setIsLoading] = useState(true);
+  const { email, description, image, name } = props;
 
   useEffect(() => {
-    const getUserName = async () => {
-      const userName = await getUser();
-      setObState((prevObj) => ({
-        ...prevObj,
-        isLoading: false,
-        userName,
-      }));
-    };
-    getUserName();
+    setIsLoading(false);
   }, []);
 
-  const { isLoading, userName } = objState;
-  const { description, email, image, name } = userName;
   return (
     isLoading ? <Loading /> : (
       <section className="user">

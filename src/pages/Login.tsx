@@ -17,7 +17,8 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const handleOnChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { target: { value } } = event;
     setObjState((prevObj) => (
       { ...prevObj,
         name: value,

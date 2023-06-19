@@ -24,6 +24,7 @@ function InputButton(props:InputButtonType) {
         onChange={ (event) => handleOnChange(event) }
       />
       <button
+        id="Herick"
         data-testid={ `${type}-${obj.button}-button` }
         disabled={ isDisabled }
         type="submit"
