@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import ListMusic from '../Components/ListMusic';
 import Loading from './Loading';
 import { SongType } from '../types';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import ListMusic from '../Components/ListMusic';
 
 const INITIAL_STATE = {
   favoriteSongsIds: [] as number[],

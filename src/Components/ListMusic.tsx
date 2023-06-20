@@ -18,7 +18,7 @@ function ListMusic(props: ListMusicProp) {
     } else {
       setIsFavorite(false);
     }
-  }, [handleIsFavorite]);
+  }, [listFavoriteIds, trackId]);
 
   const trackIdString = trackId.toString();
   return (

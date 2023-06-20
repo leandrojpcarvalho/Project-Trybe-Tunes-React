@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserType } from '../types';
-import { updateUser } from '../services/userAPI';
+import { getUser, updateUser } from '../services/userAPI';
 import Loading from './Loading';
 
 const INITIAL_STATE = {
   name: '',
   email: '',
-  image: '',
+  image: 'https://icons8.com.br/icon/20563/avatar',
   description: '',
 };
 
@@ -15,46 +15,48 @@ type EventForm = React.ChangeEvent<HTMLTextAreaElement>
 & React.ChangeEvent<HTMLInputElement>;
 
 type FormUserType = {
-  dataUser: UserType;
   setDataUser: React.Dispatch<React.SetStateAction<UserType>>;
 };
 
 function FormUser(props: FormUserType) {
   const [formState, setFormState] = useState<UserType>(INITIAL_STATE);
-  const [isDisable, setIsDisable] = useState(true);
+  const [isDisable, setIsDisable] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const nav = useNavigate();
 
-  const { dataUser, setDataUser } = props;
+  const { setDataUser } = props;
   useEffect(() => {
-    setFormState(dataUser);
-    setIsLoading(false);
+    const setUser = async () => {
+      const userData = await getUser();
+      setFormState(userData);
+      setIsLoading(false);
+    };
+    setUser();
   }, []);
-
-  const { description, email, image, name } = formState;
-
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setDataUser(formState);
-
-    if (await updateUser(formState) === 'OK') nav('/profile');
-  };
 
   const isDataValid = () => Object.keys(formState)
     .some((key) => formState[key as keyof UserType].length < 1);
 
-  const handleOnChange = ({ target }: EventForm) => {
-    setFormState((prevObj) => ({ ...prevObj, [target.id]: target.value }));
+  const { description, email, image, name } = formState;
+
+  const handleSubmit = async () => {
+    // event.preventDefault();
+    setIsLoading(true);
+    setDataUser(formState);
+    setFormState(formState);
+    await updateUser(formState);
+    nav('/profile');
   };
 
-  useEffect(() => {
-    setIsDisable(() => isDataValid());
-  }, [formState]);
+  const handleOnChange = ({ target }: EventForm) => {
+    setFormState((prevObj) => ({ ...prevObj, [target.id]: target.value }));
+    setIsDisable(isDataValid());
+  };
+
   return (isLoading ? <Loading /> : (
     <form action="">
-      <img src={ image } alt="foto Atual" />
+      <img src="https://img.icons8.com/?size=150&id=20563&format=png" alt="foto Atual" />
       <div>
         <label htmlFor="photo">Foto</label>
         <input

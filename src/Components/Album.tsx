@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import getMusics from '../services/musicsAPI';
 import { AlbumType, SongType } from '../types';
 import Loading from '../pages/Loading';
-import ListMusic from './ListMusic';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import ListMusic from './ListMusic';
 
 const INITIAL_STATE = {
   albumInfo: {} as AlbumType,
@@ -38,7 +38,7 @@ function Album() {
       }
     };
     getAlbum();
-  }, []);
+  }, [albumId]);
 
   const { albumInfo, isLoading, songs, favoriteSongsIds } = objState;
   const { artistName, artworkUrl100, collectionName } = albumInfo;
