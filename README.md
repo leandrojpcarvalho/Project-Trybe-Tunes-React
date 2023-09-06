@@ -17,4 +17,4 @@ No geral, o código é uma implementação de uma aplicação de música interat
   - Elevação de estado
 
 ## Comentários
- -  Implementando o css, mas os recursos estão todos disponiveis[deploy](https://docsend.com/view/w246hgt73zcaactc)
+ -  Implementando o css, mas os recursos estão todos disponiveis[deploy](https://lustrous-meringue-83ed03.netlify.app)
