@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { styled } from 'styled-components';
 import Loading from './Loading';
 import { SongType } from '../types';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import ListMusic from '../Components/ListMusic';
+import { Banner, MarginAuto, ShowList } from '../Components/StyledComponents/style';
+import banner from '../images/banner-favorite.jpg';
 
 const INITIAL_STATE = {
   favoriteSongsIds: [] as number[],
@@ -62,17 +65,23 @@ function Favorites() {
 
   return (
     isLoading ? <Loading /> : (
-      <ul>
-        {favoriteSongs.length === 0 ? <h4>Poxa! sem nada por aqui!</h4> : (
-          favoriteSongs.map((song) => (<ListMusic
-            key={ song.trackId }
-            handleIsFavorite={ handleIsFavorite }
-            listFavoriteIds={ favoriteSongsIds }
-            previewUrl={ song.previewUrl }
-            trackId={ song.trackId }
-            trackName={ song.trackName }
-          />)))}
-      </ul>
+      <MarginAuto>
+        <Banner style={ { backgroundImage: `url(${banner})` } } />
+        <h2>Suas Musicas favoritas</h2>
+        <ShowList>
+          <div className="show">
+            {favoriteSongs.length === 0 ? <h4>Poxa! sem nada por aqui!</h4> : (
+              favoriteSongs.map((song) => (<ListMusic
+                key={ song.trackId }
+                handleIsFavorite={ handleIsFavorite }
+                listFavoriteIds={ favoriteSongsIds }
+                previewUrl={ song.previewUrl }
+                trackId={ song.trackId }
+                trackName={ song.trackName }
+              />)))}
+          </div>
+        </ShowList>
+      </MarginAuto>
     )
   );
 }

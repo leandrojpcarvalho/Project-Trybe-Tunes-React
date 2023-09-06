@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { styled } from 'styled-components';
 
 type ListMusicProp = {
   previewUrl: string;
@@ -22,30 +23,50 @@ function ListMusic(props: ListMusicProp) {
 
   const trackIdString = trackId.toString();
   return (
-    <>
-      <label htmlFor={ trackIdString } data-testid={ `checkbox-music-${trackIdString}` }>
-        <img
-          src={ isFavorite
-            ? '/src/images/checked_heart.png' : '/src/images/empty_heart.png' }
-          alt="favorite"
+    <ListMusicStyled>
+      <p>{trackName}</p>
+      <div className="player">
+        <label
+          htmlFor={ trackIdString }
+          data-testid={ `checkbox-music-${trackIdString}` }
+        >
+          <img
+            src={ isFavorite
+              ? '/src/images/checked_heart.png' : '/src/images/empty_heart.png' }
+            alt="favorite"
+          />
+        </label>
+        <input
+          type="checkbox"
+          name=""
+          id={ trackIdString }
+          onChange={ handleIsFavorite }
+          checked={ isFavorite }
         />
-      </label>
-      <input
-        type="checkbox"
-        name=""
-        id={ trackIdString }
-        onChange={ handleIsFavorite }
-        checked={ isFavorite }
-      />
-      <li>{trackName}</li>
-      <audio data-testid="audio-component" src={ previewUrl } controls>
-        <track kind="captions" />
-        O seu navegador não suporta o elemento
-        { previewUrl }
-        <code>audio</code>
-      </audio>
-    </>
+        <audio data-testid="audio-component" src={ previewUrl } controls>
+          <track kind="captions" />
+          O seu navegador não suporta o elemento
+          { previewUrl }
+          <code>audio</code>
+        </audio>
+      </div>
+    </ListMusicStyled>
   );
 }
 
+const ListMusicStyled = styled.div`
+  display:flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  .player{
+    display:flex;
+    flex-flow: row-reverse nowrap;
+    align-items: center;
+    gap: 5px
+  }
+  p{
+    font-size:1.5rem;
+    color: black;
+  }
+`;
 export default ListMusic;
