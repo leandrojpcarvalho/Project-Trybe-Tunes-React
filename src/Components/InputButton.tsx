@@ -1,3 +1,6 @@
+import { styled } from "styled-components";
+import { Button, Form, Input } from "./StyledComponents/style";
+
 type InputButtonType = {
   type: string;
   handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -17,13 +20,15 @@ function InputButton(props:InputButtonType) {
     obj.input = 'artist';
   }
   return (
-    <form>
-      <input
+    <Form>
+      <Input
         type="text"
         data-testid={ `${type}-${obj.input}-input` }
         onChange={ (event) => handleOnChange(event) }
+        placeholder={ innerHTML === 'Pesquisar'
+          ? 'Digite o nome do artista' : 'Digite seu nome' }
       />
-      <button
+      <Button
         id="Herick"
         data-testid={ `${type}-${obj.button}-button` }
         disabled={ isDisabled }
@@ -31,8 +36,8 @@ function InputButton(props:InputButtonType) {
         onClick={ (event) => handleOnClick(event) }
       >
         {innerHTML}
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
 

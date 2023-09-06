@@ -5,6 +5,8 @@ import { AlbumType, SongType } from '../types';
 import Loading from '../pages/Loading';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import ListMusic from './ListMusic';
+import { styled } from 'styled-components';
+import { Banner, MarginAuto, ShowList } from './StyledComponents/style';
 
 const INITIAL_STATE = {
   albumInfo: {} as AlbumType,
@@ -70,36 +72,37 @@ function Album() {
   };
 
   return (isLoading ? <Loading /> : (
-    <section className="album">
+    <MarginAuto className="album">
       <section className="albuminfo">
-        <h2 data-testid="album-name">
-          { collectionName }
-        </h2>
-        <h4 data-testid="artist-name">
-          { artistName }
-        </h4>
-        <img
-          src={ artworkUrl100 }
-          alt=""
-        />
-        <ol className="songs">
-          {
-            songs
-              .map((song) => {
-                const { previewUrl, trackId, trackName } = song;
-                return (<ListMusic
-                  key={ song.trackId }
-                  previewUrl={ previewUrl }
-                  trackId={ trackId }
-                  trackName={ trackName }
-                  handleIsFavorite={ handleIsFavorite }
-                  listFavoriteIds={ favoriteSongsIds }
-                />);
-              })
-          }
-        </ol>
+        <Banner style={ { backgroundImage: `url(${artworkUrl100})` } } className="header">
+          <h2 data-testid="album-name">
+            { collectionName }
+          </h2>
+          <h4 data-testid="artist-name">
+            { artistName }
+          </h4>
+        </Banner>
+        <h2>Músicas</h2>
+        <ShowList>
+          <div className="show">
+            {
+              songs
+                .map((song) => {
+                  const { previewUrl, trackId, trackName } = song;
+                  return (<ListMusic
+                    key={ song.trackId }
+                    previewUrl={ previewUrl }
+                    trackId={ trackId }
+                    trackName={ trackName }
+                    handleIsFavorite={ handleIsFavorite }
+                    listFavoriteIds={ favoriteSongsIds }
+                  />);
+                })
+            }
+          </div>
+        </ShowList>
       </section>
-    </section>));
+    </MarginAuto>));
 }
 
 export default Album;

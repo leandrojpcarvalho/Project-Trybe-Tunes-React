@@ -4,6 +4,7 @@ import { AlbumType } from '../types';
 import InputButton from '../Components/InputButton';
 import Loading from './Loading';
 import Albums from '../Components/Albums';
+import { styled } from 'styled-components';
 
 type ObjState = {
   name: string;
@@ -65,14 +66,20 @@ function Search() {
             Nenhum álbum foi encontrado
           </p>) : (
             <section className="artist">
-              <h2>{ `Resultado de álbuns de: ${artistName}`}</h2>
-              <section className="albuns">
+              <p>{ `Resultado de álbuns de: ${artistName}`}</p>
+              <AlbunsStyled>
                 { objArtist
                   .map((album) => <Albums key={ album.collectionId } { ...album } />) }
-              </section>
+              </AlbunsStyled>
             </section>)}
       </>
     );
 }
+
+const AlbunsStyled = styled.section`
+  display:flex;
+  flex-flow: column nowrap;
+  overflow: auto;
+`;
 
 export default Search;
