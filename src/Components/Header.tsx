@@ -40,10 +40,12 @@ function Header({ name }: { name: string }) {
 }
 
 const HeaderStyled = styled.div`
+  height: 18vh;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
+  
   span{
     color:#ff9000;
     font-size: 1.5rem;
@@ -71,7 +73,6 @@ const Nav = styled.nav`
 `;
 
 const HeaderGlass = styled.header`
-margin: 10px 0;
   /* From https://css.glass */
 background: rgba(255, 255, 255, 0.4);
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);

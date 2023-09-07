@@ -5,7 +5,6 @@ import { AlbumType, SongType } from '../types';
 import Loading from '../pages/Loading';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import ListMusic from './ListMusic';
-import { styled } from 'styled-components';
 import { Banner, MarginAuto, ShowList } from './StyledComponents/style';
 
 const INITIAL_STATE = {

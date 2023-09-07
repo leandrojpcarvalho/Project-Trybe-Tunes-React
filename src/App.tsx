@@ -11,11 +11,12 @@ import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
 import FormUser from './pages/FormUser';
 import { getUser } from './services/userAPI';
+import userPicture from './images/user.png';
 
 const INITIAL_STATE = {
   name: '',
   email: '',
-  image: '',
+  image: userPicture,
   description: '',
 };
 
@@ -54,8 +55,11 @@ function App() {
 
   useEffect(() => {
     const getUserName = async () => {
-      const userObj = await getUser();
-      setObjUser(() => userObj);
+      const { name } = await getUser();
+      setObjUser((curr) => ({
+        ...curr,
+        name,
+      }));
     };
     getUserName();
   }, []);

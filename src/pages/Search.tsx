@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { styled } from 'styled-components';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import { AlbumType } from '../types';
 import InputButton from '../Components/InputButton';
 import Loading from './Loading';
 import Albums from '../Components/Albums';
-import { styled } from 'styled-components';
+import { ShowList } from '../Components/StyledComponents/style';
 
 type ObjState = {
   name: string;
@@ -51,28 +52,31 @@ function Search() {
       setStateControl((prevObj) => ({ ...prevObj, name: '', isLoading: false }));
     }
   };
+  const value = { columns: [0, 0], rows: [1, 1], form: 'pesquisar' };
+
   return isLoading ? <Loading />
     : (
-      <>
+      <ShowList>
         <InputButton
           type="search"
           handleOnChange={ handleOnChange }
           handleOnClick={ handleSubmit }
           isDisabled={ isDisabled }
           innerHTML="Pesquisar"
+          value={ value }
         />
         { objArtist.length === 0 ? (
           <p>
             Nenhum álbum foi encontrado
           </p>) : (
-            <section className="artist">
+            <section className="show">
               <p>{ `Resultado de álbuns de: ${artistName}`}</p>
               <AlbunsStyled>
                 { objArtist
                   .map((album) => <Albums key={ album.collectionId } { ...album } />) }
               </AlbunsStyled>
             </section>)}
-      </>
+      </ShowList>
     );
 }
 
