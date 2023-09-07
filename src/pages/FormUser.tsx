@@ -10,7 +10,7 @@ import { useUser } from './Layout';
 const INITIAL_STATE = {
   name: '',
   email: '',
-  image: 'https://icons8.com.br/icon/20563/avatar',
+  image: 'https://images.unsplash.com/photo-1606893995103-a431bce9c219?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVuaW5hcyUyMGZvdG98ZW58MHx8MHx8fDA%3D&w=1000&q=80',
   description: '',
   wallPaper: '',
   favoritePage: '',
@@ -124,7 +124,7 @@ function FormUser(props: FormUserType) {
             id="email"
             value={ email }
             onChange={ handleOnChange }
-            placeholder="Insira o seu e-mail"
+            placeholder="Insira o seu e-mail."
 
           />
           <ResponsiveLabel htmlFor="description">Descrição</ResponsiveLabel>
@@ -160,10 +160,14 @@ const ResponsiveLabel = styled.label`
 
 const ButtonFormUser = styled.button`
   text-align: center;
-  font-size: 1rem;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 5px 5px 5px gray;
+  text-decoration: none;
+  background-color: #ffb855;
+  color: black;
+  font-weight: bolder;
+  box-shadow: 1px 1px 3px darkgray;
+  padding:10px 20px;
+  font-size: 1.5rem;
+  border-radius: 10px 0;
   height: 6vh;
   width: 48vh;
 `;

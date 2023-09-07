@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
+import checked from '../images/checked_heart.png';
+import empty from '../images/empty_heart.png';
 
 type ListMusicProp = {
   previewUrl: string;
@@ -32,7 +34,7 @@ function ListMusic(props: ListMusicProp) {
         >
           <img
             src={ isFavorite
-              ? '/src/images/checked_heart.png' : '/src/images/empty_heart.png' }
+              ? checked : empty }
             alt="favorite"
           />
         </label>

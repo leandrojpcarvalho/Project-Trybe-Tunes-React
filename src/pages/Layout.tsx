@@ -52,7 +52,7 @@ const Main = styled.main`
   .mid{
     height: 12vh;
     width: auto;
-    margin: 10px;
+    margin: 10px auto;
     text-align: center;
   }
   p{

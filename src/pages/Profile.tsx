@@ -10,7 +10,7 @@ function Profile(props: UserType) {
   const { user } = useUser();
 
   const { email, description, image, name } = user;
-
+  console.log(image);
   useEffect(() => {
     setIsLoading(false);
   }, []);
