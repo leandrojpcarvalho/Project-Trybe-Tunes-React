@@ -102,6 +102,7 @@ export const Form = styled.form`
     background-color: #ffffffcb;
     border-radius: 10px;
     margin-top: 20px;
+    max-width: max-content;
     min-width: 690px;
     max-height: 50px;
     ${({ defaultValue }: PropFormGrid) => formType(defaultValue, '-before-900')};
@@ -178,18 +179,23 @@ type PropColor = {
 
 export const Banner = styled.div`
   margin: 0 auto;
+  min-width: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  color: ${({ defaultValue }: string) => generateColor(defaultValue)};
-  background-color: ${({ defaultValue }: string) => (defaultValue)};
+  color: ${({ defaultValue }: string) => generateColor(defaultValue || '#000000')};
+  background-color: ${({ defaultValue }: string) => (defaultValue || '#000000')};
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center;
   font-weight: bold;
   text-shadow: 1px 1px 2px white;
-  height: 100%;
+  /* height: 100%; */
   @media screen and (min-width: 900px){
     max-width: 900px;
     min-width: 900px;
+    height: inherit;
   }
  `;
 
