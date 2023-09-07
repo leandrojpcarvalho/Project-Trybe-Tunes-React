@@ -124,7 +124,7 @@ function FormUser(props: FormUserType) {
             id="email"
             value={ email }
             onChange={ handleOnChange }
-            placeholder="Insira o seu e-mail"
+            placeholder="Insira o seu e-mail."
 
           />
           <ResponsiveLabel htmlFor="description">Descrição</ResponsiveLabel>
