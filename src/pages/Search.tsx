@@ -5,7 +5,7 @@ import { AlbumType } from '../types';
 import InputButton from '../Components/InputButton';
 import Loading from './Loading';
 import Albums from '../Components/Albums';
-import { ShowList } from '../Components/StyledComponents/style';
+import { PropFormGrid, ShowList } from '../Components/StyledComponents/style';
 
 type ObjState = {
   name: string;
@@ -52,7 +52,7 @@ function Search() {
       setStateControl((prevObj) => ({ ...prevObj, name: '', isLoading: false }));
     }
   };
-  const value = { columns: [0, 0], rows: [1, 1], form: 'pesquisar' };
+  const value = { defaultValue: {columns: [1, 2], rows: [1, 2], form: 'search' } } as PropFormGrid;
 
   return isLoading ? <Loading />
     : (
@@ -84,6 +84,9 @@ const AlbunsStyled = styled.section`
   display:flex;
   flex-flow: column nowrap;
   overflow: auto;
+  @media screen and (min-width: 600px){
+    flex-flow: row wrap;
+  }
 `;
 
 export default Search;

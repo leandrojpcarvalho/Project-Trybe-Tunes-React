@@ -24,8 +24,8 @@ function ListMusic(props: ListMusicProp) {
   const trackIdString = trackId.toString();
   return (
     <ListMusicStyled>
-      <p>{trackName}</p>
       <div className="player">
+        <p>{trackName}</p>
         <label
           htmlFor={ trackIdString }
           data-testid={ `checkbox-music-${trackIdString}` }
@@ -36,20 +36,20 @@ function ListMusic(props: ListMusicProp) {
             alt="favorite"
           />
         </label>
-        <input
+        {/* <input
           type="checkbox"
           name=""
           id={ trackIdString }
           onChange={ handleIsFavorite }
           checked={ isFavorite }
-        />
-        <audio data-testid="audio-component" src={ previewUrl } controls>
-          <track kind="captions" />
-          O seu navegador não suporta o elemento
-          { previewUrl }
-          <code>audio</code>
-        </audio>
+        /> */}
       </div>
+      <audio data-testid="audio-component" src={ previewUrl } controls>
+        <track kind="captions" />
+        O seu navegador não suporta o elemento
+        { previewUrl }
+        <code>audio</code>
+      </audio>
     </ListMusicStyled>
   );
 }
@@ -57,16 +57,29 @@ function ListMusic(props: ListMusicProp) {
 const ListMusicStyled = styled.div`
   display:flex;
   flex-flow: column nowrap;
-  align-items: flex-start;
+  align-items: center;
+  margin: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f5f5f5fd;
+  box-shadow: 1px 1px 3px darkgray;
   .player{
-    display:flex;
-    flex-flow: row-reverse nowrap;
+    display: flex;
+    flex-flow: row nowrap;
     align-items: center;
-    gap: 5px
+    justify-content: space-between;
+    gap: 10px;
+    height: 30px;
+    width: 250px;
   }
   p{
     font-size:1.5rem;
     color: black;
+  }
+  audio{
+    width: -webkit-fill-available;
+    box-shadow: 1px 1px 3px darkgray;
+    border-radius: 10px;
   }
 `;
 export default ListMusic;

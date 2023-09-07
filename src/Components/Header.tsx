@@ -40,6 +40,7 @@ function Header({ name }: { name: string }) {
 }
 
 const HeaderStyled = styled.div`
+ 
   height: 18vh;
   display: flex;
   justify-content: space-around;
@@ -73,12 +74,17 @@ const Nav = styled.nav`
 `;
 
 const HeaderGlass = styled.header`
-  /* From https://css.glass */
-background: rgba(255, 255, 255, 0.4);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(6.2px);
--webkit-backdrop-filter: blur(6.2px);
-border: 1px solid rgba(255, 255, 255, 0.3);
+@media screen and (min-width: 900px){
+  min-width: 472px;
+  max-width: 1200px;
+}
+  margin: 0 auto;
+    /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.2px);
+  -webkit-backdrop-filter: blur(6.2px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 `;
 
 export default Header;

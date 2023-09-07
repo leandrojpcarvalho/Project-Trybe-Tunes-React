@@ -28,6 +28,7 @@ const StyledCard = styled.section`
   background-color: #ffffff7d;
   section{
     display: grid;
+    max-width: min-content;
     grid-template-rows: 1fr 3fr;
     justify-content: center;
     justify-items: center;
@@ -35,7 +36,6 @@ const StyledCard = styled.section`
     padding: 10px 40px;
     margin: 10px 0;
     box-shadow: 1px 1px 3px gray;
-    width: 50vh;
     border-radius: 10px;
     a{
       text-decoration: none;
