@@ -1,3 +1,4 @@
+import { styled } from 'styled-components';
 import { Button, Form, Input, PropFormGrid } from './StyledComponents/style';
 
 type InputButtonType = {

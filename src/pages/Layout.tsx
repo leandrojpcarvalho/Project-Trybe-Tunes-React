@@ -27,8 +27,8 @@ function Layout(prop: { objUser : UserType }) {
 
   const { name } = user;
   return (
-    <StyleBackGround>
-      <img className="background" src={ backgrounds.wallPaper } alt="" />
+    <StyleBackGround style={ { backgroundImage: `url(${backgrounds.wallPaper})` } }>
+      {/* <img className="background" src={ backgrounds.wallPaper } alt="" /> */}
       <Header name={ name } />
       <Main>
         <Outlet
@@ -48,11 +48,12 @@ export function useUser() {
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  height: 75.4vh;
   .mid{
     height: 12vh;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: auto;
+    margin: 10px;
+    text-align: center;
   }
   p{
     margin: 15px 10px;
@@ -74,12 +75,12 @@ const StyleBackGround = styled.div`
   background-position: center;
   background-size:cover;
   background-repeat: no-repeat;
-  .background{
+  /* .background{
     position: absolute;
     height:100vh;
     z-index: -1;
     opacity: 0.6;
-  }
+  } */
 `;
 
 export default Layout;

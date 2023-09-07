@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserType } from '../types';
 import { getUser, updateUser } from '../services/userAPI';
 import Loading from './Loading';
-import { Button, Form, Input, MarginAuto } from '../Components/StyledComponents/style';
+import { Button, Form, Input, MarginAuto, PropFormGrid } from '../Components/StyledComponents/style';
 import { useUser } from './Layout';
 
 const INITIAL_STATE = {
@@ -69,14 +69,16 @@ function FormUser(props: FormUserType) {
     setIsDisable(isDataValid());
   };
 
-  const value = { columns: [1, 1], rows: [1, 3], form: 'editar' };
+  const value = { defaultValue:
+    { columns: [1, 1], rows: [1, 3], form: 'edit', type: '' },
+  } as PropFormGrid;
 
   return (isLoading ? <Loading /> : (
     <Form defaultValue={ value }>
       <img src="https://img.icons8.com/?size=150&id=20563&format=png" alt="foto Atual" />
-      <div>
-        <ResponsiveLabel htmlFor="photo">Foto</ResponsiveLabel>
+      <div className="form-desktop">
         <MarginAuto>
+          <ResponsiveLabel htmlFor="name">URL foto</ResponsiveLabel>
           <Input
             data-testid="edit-input-image"
             type="text"

@@ -9,6 +9,11 @@ code {
     monospace;
 }
 
+body {
+  margin: 0 auto;
+  height: 100vh;
+}
+
 .loading {
   align-items: center;
   display: flex;
