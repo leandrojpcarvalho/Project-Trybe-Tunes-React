@@ -5,7 +5,7 @@ import { SongType } from '../types';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import ListMusic from '../Components/ListMusic';
 import { Banner, MarginAuto, ShowList } from '../Components/StyledComponents/style';
-import banner from '../images/banner-favorite.jpg';
+import { useUser } from './Layout';
 
 const INITIAL_STATE = {
   favoriteSongsIds: [] as number[],
@@ -15,6 +15,8 @@ const INITIAL_STATE = {
 function Favorites() {
   const [favoriteState, setFavoriteState] = useState(INITIAL_STATE);
   const [isLoading, setIsLoading] = useState(true);
+  const [favoriteColor, setFavoriteColor] = useState<string>('');
+  const { backgrounds: { favoritePage } } = useUser();
 
   const SetFavoriteInitialState = async () => {
     const favoriteSongs = await getFavoriteSongs();
@@ -61,14 +63,18 @@ function Favorites() {
 
   useEffect(() => {
     SetFavoriteInitialState();
+    if (favoritePage !== '') setFavoriteColor(favoritePage);
   }, []);
 
   return (
     isLoading ? <Loading /> : (
-      <MarginAuto>
-        <Banner style={ { backgroundImage: `url(${banner})` } } />
-        <h2>Suas Musicas favoritas</h2>
-        <ShowList>
+      <ShowList>
+        <MarginAuto>
+          <div className="mid">
+            <Banner defaultValue={ favoriteColor }>
+              <h2>Suas Musicas favoritas</h2>
+            </Banner>
+          </div>
           <div className="show">
             {favoriteSongs.length === 0 ? <h4>Poxa! sem nada por aqui!</h4> : (
               favoriteSongs.map((song) => (<ListMusic
@@ -80,8 +86,8 @@ function Favorites() {
                 trackName={ song.trackName }
               />)))}
           </div>
-        </ShowList>
-      </MarginAuto>
+        </MarginAuto>
+      </ShowList>
     )
   );
 }

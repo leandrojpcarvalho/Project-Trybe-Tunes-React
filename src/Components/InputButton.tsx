@@ -1,5 +1,4 @@
-import { styled } from "styled-components";
-import { Button, Form, Input } from "./StyledComponents/style";
+import { Button, Form, Input, PropFormGrid } from './StyledComponents/style';
 
 type InputButtonType = {
   type: string;
@@ -7,10 +6,11 @@ type InputButtonType = {
   handleOnClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   isDisabled: boolean;
   innerHTML: string;
+  value: PropFormGrid;
 };
 
 function InputButton(props:InputButtonType) {
-  const { type, handleOnChange, handleOnClick, isDisabled, innerHTML } = props;
+  const { type, handleOnChange, handleOnClick, isDisabled, innerHTML, value } = props;
   const obj = {
     input: 'name',
     button: 'submit',
@@ -20,7 +20,7 @@ function InputButton(props:InputButtonType) {
     obj.input = 'artist';
   }
   return (
-    <Form>
+    <Form defaultValue={ value } className="mid">
       <Input
         type="text"
         data-testid={ `${type}-${obj.input}-input` }
