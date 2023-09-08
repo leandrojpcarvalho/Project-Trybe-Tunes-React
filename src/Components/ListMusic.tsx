@@ -28,13 +28,13 @@ function ListMusic(props: ListMusicProp) {
     <ListMusicStyled>
       <div className="player">
         <p>{trackName}</p>
-        <button onClick={ (event) => handleIsFavorite(trackId) }>
+        <ButtonFavorite onClick={ () => handleIsFavorite(trackId) }>
           <img
             src={ isFavorite
               ? checked : empty }
             alt="favorite"
           />
-        </button>
+        </ButtonFavorite>
       </div>
       <audio data-testid="audio-component" src={ previewUrl } controls>
         <track kind="captions" />
@@ -73,5 +73,9 @@ const ListMusicStyled = styled.div`
     box-shadow: 1px 1px 3px darkgray;
     border-radius: 10px;
   }
+`;
+
+const ButtonFavorite = styled.button`
+  border: none;
 `;
 export default ListMusic;

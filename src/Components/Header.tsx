@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { getUser } from '../services/userAPI';
 import Loading from '../pages/Loading';
-import { H1 } from './StyledComponents/style';
+import { H1, Nav } from './StyledComponents/style';
+import NavMenu from './NavMenu';
 
 type PropType = {
   name: string;
@@ -23,6 +24,9 @@ function Header({ name }: PropType) {
   return (isLoading ? <Loading /> : (
     <HeaderGlass data-testid="header-component">
       <HeaderStyled>
+        <div className="responsive-nav-before-600 fade">
+          <NavMenu />
+        </div>
         <H1>TrybeTunes</H1>
         <p data-testid="header-user-name">
           Bem vindo,
@@ -32,7 +36,7 @@ function Header({ name }: PropType) {
           </span>
         </p>
       </HeaderStyled>
-      <Nav>
+      <Nav className="responsive-nav-after-600 fade">
         <NavLink to="/search" data-testid="link-to-search">Pesquisar</NavLink>
         {' '}
         <NavLink to="/favorites" data-testid="link-to-favorites">Favoritos</NavLink>
@@ -45,10 +49,10 @@ function Header({ name }: PropType) {
 }
 
 const HeaderStyled = styled.div`
- 
+  
   height: 18vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
   justify-items: center;
 
@@ -62,30 +66,10 @@ const HeaderStyled = styled.div`
   & :nth-child(3) {
     grid-column: 1/3;
   }
-  
   span{
     color:#ff9000;
     font-size: 1.5rem;
     font-weight: bold;
-  }
-`;
-
-const Nav = styled.nav`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 15px;
-  justify-items: center;
-  padding: 10px;
-  a{
-    text-decoration: none;
-    border: 1px solid transparent;
-    padding: 10px 0;
-    width: 100%;
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    color: #000000e2;
-    box-shadow: 1px 2px 3px gray;
   }
 `;
 
@@ -94,6 +78,25 @@ const HeaderGlass = styled.header`
   min-width: 472px;
   max-width: 1200px;
 }
+@media screen and (min-width: 600px){
+    .responsive-nav-after-600{
+      display:grid;
+    }
+    .responsive-nav-before-600{
+      display:none;
+    }
+  }
+  @media screen and (max-width: 599px){
+    .responsive-nav-after-600{
+      display:none;
+    }
+    .responsive-nav-before-600{
+      display:flex;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
+  }
   margin: 0 auto;
     /* From https://css.glass */
   background: rgba(255, 255, 255, 0.4);
