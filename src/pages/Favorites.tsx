@@ -46,9 +46,7 @@ function Favorites() {
     SetFavoriteInitialState();
   };
 
-  const handleIsFavorite = async ({
-    target: { id },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIsFavorite = async (id: number) => {
     setIsLoading(true);
     const idSong = Number(id);
     await addAndRemoveDB(idSong);
@@ -68,7 +66,7 @@ function Favorites() {
 
   return (
     isLoading ? <Loading /> : (
-      <ShowList>
+      <ShowList className="fade">
         <MarginAuto>
           <div className="mid">
             <Banner defaultValue={ favoriteColor }>

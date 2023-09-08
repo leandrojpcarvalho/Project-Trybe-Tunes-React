@@ -56,9 +56,7 @@ function Album() {
     }
   };
 
-  const handleIsFavorite = async ({
-    target: { id },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIsFavorite = async (id: number) => {
     const idSong = Number(id);
 
     if (favoriteSongsIds.includes(idSong)) {
@@ -71,7 +69,7 @@ function Album() {
   };
 
   return (isLoading ? <Loading /> : (
-    <MarginAuto className="album">
+    <MarginAuto className="album fade">
       <section className="albuminfo">
         <Banner style={ { backgroundImage: `url(${artworkUrl100})` } } className="header">
           <h2 data-testid="album-name">

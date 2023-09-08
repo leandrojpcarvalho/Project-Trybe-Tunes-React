@@ -6,6 +6,7 @@ import { getUser, updateUser } from '../services/userAPI';
 import Loading from './Loading';
 import { Button, Form, Input, MarginAuto, PropFormGrid } from '../Components/StyledComponents/style';
 import { useUser } from './Layout';
+import ImagesBackground from '../Components/ImagesBackground';
 
 const INITIAL_STATE = {
   name: '',
@@ -74,7 +75,7 @@ function FormUser(props: FormUserType) {
   } as PropFormGrid;
 
   return (isLoading ? <Loading /> : (
-    <Form defaultValue={ value }>
+    <Form defaultValue={ value } className="fade">
       <img src="https://img.icons8.com/?size=150&id=20563&format=png" alt="foto Atual" />
       <div className="form-desktop">
         <MarginAuto>
@@ -97,16 +98,6 @@ function FormUser(props: FormUserType) {
             onChange={ handleOnChange }
             placeholder="Insira como você quer ser chamado"
           />
-          <ResponsiveLabel htmlFor="wallPaper">Imagem de Fundo</ResponsiveLabel>
-          <Input
-            data-testid="edit-input-name"
-            id="wallPaper"
-            value={ wallPaper }
-            type="text"
-            onChange={ handleOnChange }
-            placeholder="Insira como você quer ser chamado"
-          />
-
           <ResponsiveLabel htmlFor="favoritePage">Mural de favoritos</ResponsiveLabel>
           <Input
             data-testid="edit-input-name"

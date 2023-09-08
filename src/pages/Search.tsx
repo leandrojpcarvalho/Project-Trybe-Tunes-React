@@ -56,7 +56,7 @@ function Search() {
 
   return isLoading ? <Loading />
     : (
-      <ShowList>
+      <ShowList className="fade">
         <InputButton
           type="search"
           handleOnChange={ handleOnChange }

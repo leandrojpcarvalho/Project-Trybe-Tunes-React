@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { UserType } from '../types';
 import Loading from './Loading';
 import { useUser } from './Layout';
+import Menu from '../Components/Menu';
 
-function Profile(props: UserType) {
+function Profile() {
   const [isLoading, setIsLoading] = useState(true);
-  const { user } = useUser();
+  const { user, backgrounds, setBackgrounds } = useUser();
 
   const { email, description, image, name } = user;
-  console.log(image);
   useEffect(() => {
     setIsLoading(false);
   }, []);
 
   return (
     isLoading ? <Loading /> : (
-      <ProfileStyled>
+      <ProfileStyled className="fade">
         <div>
+          <Menu backgrounds={ backgrounds } setBackgrounds={ setBackgrounds } />
           <div className="all-info">
             <img src={ image } alt="sua foto" data-testid="profile-image" />
             <div className="info">

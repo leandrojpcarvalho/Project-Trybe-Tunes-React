@@ -11,7 +11,7 @@ type ContextOutletStoreType = {
   setBackgrounds: (param: Backgrounds) => void;
 };
 
-type Backgrounds = {
+export type Backgrounds = {
   wallPaper: string;
   favoritePage: string;
 };
@@ -27,9 +27,13 @@ function Layout(prop: { objUser : UserType }) {
 
   const { name } = user;
   return (
-    <StyleBackGround style={ { backgroundImage: `url(${backgrounds.wallPaper})` } }>
-      {/* <img className="background" src={ backgrounds.wallPaper } alt="" /> */}
-      <Header name={ name } />
+    <StyleBackGround
+      className="fade"
+      style={ { backgroundImage: `url(${backgrounds.wallPaper})` } }
+    >
+      <Header
+        name={ name }
+      />
       <Main>
         <Outlet
           context={
