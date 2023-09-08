@@ -212,12 +212,11 @@ export const MarginAuto = styled.div`
 `;
 
 export const ConfigurationButton = styled.div`
-  position: absolute;
   display: flex;
-  border: 3px solid white;
-  border-radius: 100%;
-  width: 40px;
-  height: 40px;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  width: 30px;
+  height: 30px;
   background-image: ${({ defaultValue }) => `url(${defaultValue})`};
   background-position: center;
   background-size: cover;
@@ -228,27 +227,28 @@ export const ConfigurationButton = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-  position: absolute;
-  z-index: 10;
-  width: 100%;
-  display: grid;
-  border: 2px solid black;
-  background-color: darkgray;
-  padding: 20px;
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  display: flex;
+  border: 2px solid transparent;
+  box-shadow: 1px 1px 3px gray;
+  border-radius: 10px;
+  background-color: #fcd4b0;
+  padding: 10px;
   .wrapped-container{
     display: flex;
     flex-flow: row wrap;
     .wrapped-element{
       flex-grow: 1;
-      margin: 10px;
-      padding: 10px;
       background-position: center;
+      background-color: white;
       border: 3px solid ${({ defaultValue }) => (
     defaultValue ? defaultValue.color : 'transparent')};
       &:hover{
         flex-grow:4;
         transition: 0.25s ease-in-out;
-        border: 3px solid gray;
+        border: 3px solid #ffa352;
       }
     }
   }
@@ -258,6 +258,23 @@ export const ModalWrapper = styled.div`
     bottom: 20px;
     grid-column: none;
   }
-
-
   `;
+
+export const Nav = styled.nav`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  justify-items: center;
+  padding: 10px;
+  a{
+    text-decoration: none;
+    border: 1px solid transparent;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #000000e2;
+    box-shadow: 1px 2px 3px gray;
+  }
+`;

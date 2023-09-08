@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 import { ConfigurationButton, ModalWrapper } from './StyledComponents/style';
 import close from '../images/fechar.png';
 import gearImage from '../images/gear.png';
@@ -21,14 +22,12 @@ function Menu({ backgrounds, setBackgrounds }: PropType) {
   const modalChangeBackground = () => {
     return (
       <ModalWrapper className="fade">
-        <div>
-          <ConfigurationButton
-            className="close"
-            onClick={ handleToggle }
-            defaultValue={ close }
-            aria-hidden="true"
-          />
-        </div>
+        <ConfigurationButton
+          className="close"
+          onClick={ handleToggle }
+          defaultValue={ close }
+          aria-hidden="true"
+        />
         <p>Selecione um Papel de parede</p>
         <ImagesBackground
           backgrounds={ backgrounds }
@@ -48,5 +47,17 @@ function Menu({ backgrounds, setBackgrounds }: PropType) {
       />)
   );
 }
+
+const Test = styled.div`
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vh;
+  height: 100vh;
+  background-color: red;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default Menu;
