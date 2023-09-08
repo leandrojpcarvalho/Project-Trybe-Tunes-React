@@ -19,3 +19,12 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.fade{
+  animation: fadein .4s ease-in;
+}
+
+@keyframes fadein{
+  from {opacity:0}
+  to {opacity:1}
+}

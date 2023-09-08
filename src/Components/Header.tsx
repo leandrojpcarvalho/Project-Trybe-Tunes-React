@@ -5,7 +5,11 @@ import { getUser } from '../services/userAPI';
 import Loading from '../pages/Loading';
 import { H1 } from './StyledComponents/style';
 
-function Header({ name }: { name: string }) {
+type PropType = {
+  name: string;
+};
+
+function Header({ name }: PropType) {
   const [userName, setUserName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const setUser = async () => {
@@ -35,17 +39,29 @@ function Header({ name }: { name: string }) {
         {' '}
         <NavLink to="/profile" data-testid="link-to-profile">Perfil</NavLink>
       </Nav>
-    </HeaderGlass>)
+    </HeaderGlass>
+  )
   );
 }
 
 const HeaderStyled = styled.div`
  
   height: 18vh;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
+  justify-items: center;
+
+  & :nth-child(2) {
+    right: 5px;
+    top: 5px;
+  }
+  & :nth-child(1) {
+    grid-column: 1/3;
+  }
+  & :nth-child(3) {
+    grid-column: 1/3;
+  }
   
   span{
     color:#ff9000;

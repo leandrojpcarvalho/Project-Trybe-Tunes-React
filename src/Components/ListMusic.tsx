@@ -7,7 +7,7 @@ type ListMusicProp = {
   previewUrl: string;
   trackName: string;
   trackId: number;
-  handleIsFavorite: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleIsFavorite: (param: number) => void;
   listFavoriteIds: number[];
 };
 
@@ -28,23 +28,13 @@ function ListMusic(props: ListMusicProp) {
     <ListMusicStyled>
       <div className="player">
         <p>{trackName}</p>
-        <label
-          htmlFor={ trackIdString }
-          data-testid={ `checkbox-music-${trackIdString}` }
-        >
+        <button onClick={ (event) => handleIsFavorite(trackId) }>
           <img
             src={ isFavorite
               ? checked : empty }
             alt="favorite"
           />
-        </label>
-        {/* <input
-          type="checkbox"
-          name=""
-          id={ trackIdString }
-          onChange={ handleIsFavorite }
-          checked={ isFavorite }
-        /> */}
+        </button>
       </div>
       <audio data-testid="audio-component" src={ previewUrl } controls>
         <track kind="captions" />

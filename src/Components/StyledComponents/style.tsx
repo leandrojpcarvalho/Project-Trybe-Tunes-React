@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import gear from '../../images/gear.png';
 import { generateColor } from '../../utils';
 
 export const BgDiv = styled.div`
@@ -209,3 +210,54 @@ export const MarginAuto = styled.div`
     text-align: center;
   }
 `;
+
+export const ConfigurationButton = styled.div`
+  position: absolute;
+  display: flex;
+  border: 3px solid white;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  background-image: ${({ defaultValue }) => `url(${defaultValue})`};
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+  &:hover {
+    border: 3px solid #f5af53
+  }
+`;
+
+export const ModalWrapper = styled.div`
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  display: grid;
+  border: 2px solid black;
+  background-color: darkgray;
+  padding: 20px;
+  .wrapped-container{
+    display: flex;
+    flex-flow: row wrap;
+    .wrapped-element{
+      flex-grow: 1;
+      margin: 10px;
+      padding: 10px;
+      background-position: center;
+      border: 3px solid ${({ defaultValue }) => (
+    defaultValue ? defaultValue.color : 'transparent')};
+      &:hover{
+        flex-grow:4;
+        transition: 0.25s ease-in-out;
+        border: 3px solid gray;
+      }
+    }
+  }
+  .close {
+    position: relative;
+    right: 7px;
+    bottom: 20px;
+    grid-column: none;
+  }
+
+
+  `;
